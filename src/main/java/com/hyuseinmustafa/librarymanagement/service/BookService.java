@@ -1,13 +1,14 @@
 package com.hyuseinmustafa.librarymanagement.service;
 
-import com.hyuseinmustafa.librarymanagement.web.v1.model.BookDto;
+import com.hyuseinmustafa.librarymanagement.web.v1.model.GetBookDto;
+import com.hyuseinmustafa.librarymanagement.web.v1.model.PostBookDto;
 import org.springframework.data.util.Pair;
 
 import java.util.List;
 
 public interface BookService {
-    List<BookDto> getAll();
-    BookDto getById(Long id);
-    BookDto createNew(BookDto bookDto);
-    Pair<BookDto, ContentUpdateStatus> update(Long id, BookDto bookDto);
+    List<GetBookDto> getAll();
+    GetBookDto getById(Long id);
+    GetBookDto createNew(PostBookDto postBookDto);
+    Pair<GetBookDto, ContentUpdateStatus> update(Long id, PostBookDto postBookDto);
 }

@@ -18,6 +18,6 @@ public class Author {
     private Long id;
     private String name;
 
-    @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "authors")
     private Set<Book> books;
 }
