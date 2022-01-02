@@ -1,6 +1,5 @@
 package com.hyuseinmustafa.librarymanagement.web.v1.controller;
 
-import com.hyuseinmustafa.librarymanagement.Exception.NotFoundException;
 import com.hyuseinmustafa.librarymanagement.service.BookService;
 import com.hyuseinmustafa.librarymanagement.service.ContentUpdateStatus;
 import com.hyuseinmustafa.librarymanagement.web.v1.model.BookDto;

@@ -1,6 +1,6 @@
 package com.hyuseinmustafa.librarymanagement.web.v1.controller;
 
-import com.hyuseinmustafa.librarymanagement.Exception.NotFoundException;
+import com.hyuseinmustafa.librarymanagement.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

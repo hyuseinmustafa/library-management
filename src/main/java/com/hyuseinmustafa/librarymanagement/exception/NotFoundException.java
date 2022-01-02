@@ -1,4 +1,4 @@
-package com.hyuseinmustafa.librarymanagement.Exception;
+package com.hyuseinmustafa.librarymanagement.exception;
 
 public class NotFoundException extends RuntimeException{
     public NotFoundException() {

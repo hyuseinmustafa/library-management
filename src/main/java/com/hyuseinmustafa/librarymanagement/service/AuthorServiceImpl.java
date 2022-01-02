@@ -1,6 +1,6 @@
 package com.hyuseinmustafa.librarymanagement.service;
 
-import com.hyuseinmustafa.librarymanagement.Exception.NotFoundException;
+import com.hyuseinmustafa.librarymanagement.exception.NotFoundException;
 import com.hyuseinmustafa.librarymanagement.domain.Author;
 import com.hyuseinmustafa.librarymanagement.repository.AuthorRepository;
 import com.hyuseinmustafa.librarymanagement.web.v1.mapper.AuthorMapper;
