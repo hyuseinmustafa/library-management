@@ -19,7 +19,6 @@ public class Book {
 
     private String name;
     private String isbn;
-    private Integer count;
 
     @ManyToMany
     @JoinTable(name = "author_book",
