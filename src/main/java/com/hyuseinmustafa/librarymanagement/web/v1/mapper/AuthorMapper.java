@@ -1,13 +1,14 @@
 package com.hyuseinmustafa.librarymanagement.web.v1.mapper;
 
 import com.hyuseinmustafa.librarymanagement.domain.Author;
-import com.hyuseinmustafa.librarymanagement.web.v1.model.AuthorDto;
+import com.hyuseinmustafa.librarymanagement.web.v1.model.GetAuthorDto;
+import com.hyuseinmustafa.librarymanagement.web.v1.model.PostAuthorDto;
 import org.mapstruct.Mapper;
 
 @Mapper
 public interface AuthorMapper {
 
-    AuthorDto toAuthorDto(Author author);
+    GetAuthorDto toPostAuthorDto(Author author);
 
-    Author toAuthor(AuthorDto authorDto);
+    Author toAuthor(PostAuthorDto authorDto);
 }

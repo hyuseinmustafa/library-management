@@ -2,7 +2,8 @@ package com.hyuseinmustafa.librarymanagement.web.v1.controller;
 
 import com.hyuseinmustafa.librarymanagement.service.AuthorService;
 import com.hyuseinmustafa.librarymanagement.service.ContentUpdateStatus;
-import com.hyuseinmustafa.librarymanagement.web.v1.model.AuthorDto;
+import com.hyuseinmustafa.librarymanagement.web.v1.model.GetAuthorDto;
+import com.hyuseinmustafa.librarymanagement.web.v1.model.PostAuthorDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
@@ -20,23 +21,23 @@ public class AuthorController {
     private final AuthorService authorService;
 
     @GetMapping
-    public ResponseEntity<List<AuthorDto>> getAllAuthors(){
+    public ResponseEntity<List<GetAuthorDto>> getAllAuthors(){
         return new ResponseEntity(authorService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AuthorDto> getAuthor(@PathVariable Long id){
+    public ResponseEntity<GetAuthorDto> getAuthor(@PathVariable Long id){
         return new ResponseEntity(authorService.getById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<AuthorDto> newAuthor(@RequestBody @Valid AuthorDto authorDto){
+    public ResponseEntity<GetAuthorDto> newAuthor(@RequestBody @Valid PostAuthorDto authorDto){
         return new ResponseEntity(authorService.createNew(authorDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AuthorDto> updateAuthor(@PathVariable Long id,
-                                                  @RequestBody @Valid AuthorDto authorDto){
+    public ResponseEntity<GetAuthorDto> updateAuthor(@PathVariable Long id,
+                                                     @RequestBody @Valid PostAuthorDto authorDto){
         Pair pair = authorService.update(id, authorDto);
         return new ResponseEntity(pair.getFirst(),
                 pair.getSecond() == ContentUpdateStatus.UPDATED ? HttpStatus.OK : HttpStatus.CREATED);

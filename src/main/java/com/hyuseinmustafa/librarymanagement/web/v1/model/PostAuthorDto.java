@@ -3,7 +3,6 @@ package com.hyuseinmustafa.librarymanagement.web.v1.model;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
 @Setter
@@ -11,10 +10,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AuthorDto {
-
-    @Null
-    private Long id;
+public class PostAuthorDto {
 
     @NotBlank
     @Size(min = 3, max = 20)

@@ -1,13 +1,14 @@
 package com.hyuseinmustafa.librarymanagement.service;
 
-import com.hyuseinmustafa.librarymanagement.web.v1.model.AuthorDto;
+import com.hyuseinmustafa.librarymanagement.web.v1.model.GetAuthorDto;
+import com.hyuseinmustafa.librarymanagement.web.v1.model.PostAuthorDto;
 import org.springframework.data.util.Pair;
 
 import java.util.List;
 
 public interface AuthorService {
-    List<AuthorDto> getAll();
-    AuthorDto getById(Long id);
-    AuthorDto createNew(AuthorDto authorDto);
-    Pair<AuthorDto, ContentUpdateStatus> update(Long id, AuthorDto authorDto);
+    List<GetAuthorDto> getAll();
+    GetAuthorDto getById(Long id);
+    GetAuthorDto createNew(PostAuthorDto authorDto);
+    Pair<GetAuthorDto, ContentUpdateStatus> update(Long id, PostAuthorDto authorDto);
 }

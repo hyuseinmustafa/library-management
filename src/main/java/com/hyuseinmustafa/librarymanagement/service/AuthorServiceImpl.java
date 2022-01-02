@@ -4,7 +4,8 @@ import com.hyuseinmustafa.librarymanagement.exception.NotFoundException;
 import com.hyuseinmustafa.librarymanagement.domain.Author;
 import com.hyuseinmustafa.librarymanagement.repository.AuthorRepository;
 import com.hyuseinmustafa.librarymanagement.web.v1.mapper.AuthorMapper;
-import com.hyuseinmustafa.librarymanagement.web.v1.model.AuthorDto;
+import com.hyuseinmustafa.librarymanagement.web.v1.model.GetAuthorDto;
+import com.hyuseinmustafa.librarymanagement.web.v1.model.PostAuthorDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
@@ -21,29 +22,29 @@ public class AuthorServiceImpl implements AuthorService{
     private final AuthorMapper authorMapper;
 
     @Override
-    public List<AuthorDto> getAll() {
+    public List<GetAuthorDto> getAll() {
         return StreamSupport.stream(authorRepository.findAll().spliterator(), false)
-                .map(authorMapper::toAuthorDto).collect(Collectors.toList());
+                .map(authorMapper::toPostAuthorDto).collect(Collectors.toList());
     }
 
     @Override
-    public AuthorDto getById(Long id) {
-        return authorMapper.toAuthorDto(authorRepository.findById(id)
+    public GetAuthorDto getById(Long id) {
+        return authorMapper.toPostAuthorDto(authorRepository.findById(id)
                         .orElseThrow(() -> new NotFoundException()));
     }
 
     @Override
-    public AuthorDto createNew(AuthorDto authorDto) {
-        return authorMapper.toAuthorDto(authorRepository.save(authorMapper.toAuthor(authorDto)));
+    public GetAuthorDto createNew(PostAuthorDto postAuthorDto) {
+        return authorMapper.toPostAuthorDto(authorRepository.save(authorMapper.toAuthor(postAuthorDto)));
     }
 
     @Override
-    public Pair<AuthorDto, ContentUpdateStatus> update(Long id, AuthorDto authorDto) {
+    public Pair<GetAuthorDto, ContentUpdateStatus> update(Long id, PostAuthorDto postAuthorDto) {
         Author author = authorRepository.findById(id).orElse(new Author());
-        Author authorNew = authorMapper.toAuthor(authorDto);
+        Author authorNew = authorMapper.toAuthor(postAuthorDto);
         author.setName(authorNew.getName());
         ContentUpdateStatus status = author.getId() == null ?
                 ContentUpdateStatus.CREATED_NEW : ContentUpdateStatus.UPDATED;
-        return Pair.of(authorMapper.toAuthorDto(authorRepository.save(author)), status);
+        return Pair.of(authorMapper.toPostAuthorDto(authorRepository.save(author)), status);
     }
 }
