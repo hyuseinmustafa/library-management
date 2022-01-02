@@ -1,7 +1,6 @@
 package com.hyuseinmustafa.librarymanagement.web.v1.controller;
 
 import com.hyuseinmustafa.librarymanagement.service.AuthorService;
-import com.hyuseinmustafa.librarymanagement.Exception.NotFoundException;
 import com.hyuseinmustafa.librarymanagement.service.ContentUpdateStatus;
 import com.hyuseinmustafa.librarymanagement.web.v1.model.AuthorDto;
 import lombok.RequiredArgsConstructor;
@@ -40,11 +39,5 @@ public class AuthorController {
         Pair pair = authorService.updateAuthor(id, authorDto);
         return new ResponseEntity(pair.getFirst(),
                 pair.getSecond() == ContentUpdateStatus.UPDATED ? HttpStatus.OK : HttpStatus.CREATED);
-    }
-
-    @ExceptionHandler(NotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String NotFoundException(){
-        return "Content Not Found";
     }
 }

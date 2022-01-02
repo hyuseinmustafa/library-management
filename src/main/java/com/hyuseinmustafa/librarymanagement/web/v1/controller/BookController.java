@@ -41,10 +41,4 @@ public class BookController {
         return new ResponseEntity(pair.getFirst(),
                 (pair.getSecond() == ContentUpdateStatus.UPDATED) ? HttpStatus.OK : HttpStatus.CREATED);
     }
-
-    @ExceptionHandler(NotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String NotFoundException(){
-        return "Content Not Found";
-    }
 }
