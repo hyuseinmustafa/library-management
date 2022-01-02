@@ -8,6 +8,6 @@ import java.util.List;
 public interface AuthorService {
     List<AuthorDto> getAll();
     AuthorDto getById(Long id);
-    AuthorDto newAuthor(AuthorDto authorDto);
-    Pair<AuthorDto, ContentUpdateStatus> updateAuthor(Long id, AuthorDto authorDto);
+    AuthorDto createNew(AuthorDto authorDto);
+    Pair<AuthorDto, ContentUpdateStatus> update(Long id, AuthorDto authorDto);
 }

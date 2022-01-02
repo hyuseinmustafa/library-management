@@ -33,12 +33,12 @@ public class AuthorServiceImpl implements AuthorService{
     }
 
     @Override
-    public AuthorDto newAuthor(AuthorDto authorDto) {
+    public AuthorDto createNew(AuthorDto authorDto) {
         return authorMapper.toAuthorDto(authorRepository.save(authorMapper.toAuthor(authorDto)));
     }
 
     @Override
-    public Pair<AuthorDto, ContentUpdateStatus> updateAuthor(Long id, AuthorDto authorDto) {
+    public Pair<AuthorDto, ContentUpdateStatus> update(Long id, AuthorDto authorDto) {
         Author author = authorRepository.findById(id).orElse(new Author());
         Author authorNew = authorMapper.toAuthor(authorDto);
         author.setName(authorNew.getName());
