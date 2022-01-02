@@ -31,8 +31,8 @@ public class LoadDatabase implements CommandLineRunner {
         Author author1 = Author.builder().name("Author 1").books(new HashSet<>()).build();
         Author author2 = Author.builder().name("Author 2").books(new HashSet<>()).build();
 
-        Book book1 = Book.builder().name("Book 1").authors(new HashSet<>()).build();
-        Book book2 = Book.builder().name("Book 2").authors(new HashSet<>()).build();
+        Book book1 = Book.builder().name("Book 1").isbn("978-3-16-148410-0").authors(new HashSet<>()).build();
+        Book book2 = Book.builder().name("Book 2").isbn("978-3-16-128430-0").authors(new HashSet<>()).build();
         author1.getBooks().add(book1);
         book1.getAuthors().add(author1);
         author2.getBooks().add(book2);
