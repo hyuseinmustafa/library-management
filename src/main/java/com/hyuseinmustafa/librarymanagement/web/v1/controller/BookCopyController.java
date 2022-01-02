@@ -42,4 +42,15 @@ public class BookCopyController {
         return new ResponseEntity(pair.getFirst(),
                 pair.getSecond() == ContentUpdateStatus.UPDATED ? HttpStatus.OK : HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}/borrow/{customerId}")
+    public ResponseEntity<GetBookCopyDto> borrowBookCopy(@PathVariable Long id, @PathVariable Long customerId){
+        return new ResponseEntity<>(bookCopyService.borrow(id, customerId), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/return")
+    public ResponseEntity<GetBookCopyDto> returnBookCopy(@PathVariable Long id){
+        return new ResponseEntity<>(bookCopyService.rturn(id), HttpStatus.OK);
+    }
+
 }

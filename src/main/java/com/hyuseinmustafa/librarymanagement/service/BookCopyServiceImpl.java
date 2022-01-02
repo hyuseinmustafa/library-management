@@ -1,9 +1,12 @@
 package com.hyuseinmustafa.librarymanagement.service;
 
 import com.hyuseinmustafa.librarymanagement.domain.BookCopy;
+import com.hyuseinmustafa.librarymanagement.domain.Customer;
+import com.hyuseinmustafa.librarymanagement.exception.BookCopyBorrowedException;
 import com.hyuseinmustafa.librarymanagement.exception.NotFoundException;
 import com.hyuseinmustafa.librarymanagement.repository.BookCopyRepository;
 import com.hyuseinmustafa.librarymanagement.repository.BookRepository;
+import com.hyuseinmustafa.librarymanagement.repository.CustomerRepository;
 import com.hyuseinmustafa.librarymanagement.repository.LocationRepository;
 import com.hyuseinmustafa.librarymanagement.web.v1.mapper.BookCopyMapper;
 import com.hyuseinmustafa.librarymanagement.web.v1.model.GetBookCopyDto;
@@ -24,6 +27,7 @@ public class BookCopyServiceImpl implements BookCopyService {
     private final BookCopyMapper bookCopyMapper;
     private final BookRepository bookRepository;
     private final LocationRepository locationRepository;
+    private final CustomerRepository customerRepository;
 
     @Override
     public List<GetBookCopyDto> getAll() {
@@ -55,5 +59,23 @@ public class BookCopyServiceImpl implements BookCopyService {
         ContentUpdateStatus status = bookCopy.getId() == null ?
                 ContentUpdateStatus.CREATED_NEW : ContentUpdateStatus.UPDATED;
         return Pair.of(bookCopyMapper.toGetBookCopyDto(bookCopyRepository.save(bookCopy)), status);
+    }
+
+    @Override
+    public GetBookCopyDto borrow(Long id, Long customerId) {
+        BookCopy bookCopy = bookCopyRepository.findById(id).orElseThrow(NotFoundException::new);
+        if(bookCopy.getAvailable() == false) throw new BookCopyBorrowedException();
+        bookCopy.setAvailable(false);
+        Customer customer = customerRepository.findById(customerId).orElseThrow(NotFoundException::new);
+        bookCopy.setCustomer(customer);
+        return bookCopyMapper.toGetBookCopyDto(bookCopyRepository.save(bookCopy));
+    }
+
+    @Override
+    public GetBookCopyDto rturn(Long id) {
+        BookCopy bookCopy = bookCopyRepository.findById(id).orElseThrow(NotFoundException::new);
+        bookCopy.setAvailable(true);
+        bookCopy.setCustomer(null);
+        return bookCopyMapper.toGetBookCopyDto(bookCopyRepository.save(bookCopy));
     }
 }

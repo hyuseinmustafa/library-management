@@ -11,4 +11,6 @@ public interface BookCopyService {
     GetBookCopyDto getById(Long id);
     GetBookCopyDto create(PostBookCopyDto postBookCopyDto);
     Pair<GetBookCopyDto, ContentUpdateStatus> update(Long id, PostBookCopyDto postBookCopyDto);
+    GetBookCopyDto borrow(Long id, Long customerId);
+    GetBookCopyDto rturn(Long id);
 }

@@ -1,5 +1,6 @@
 package com.hyuseinmustafa.librarymanagement.web.v1.controller;
 
+import com.hyuseinmustafa.librarymanagement.exception.BookCopyBorrowedException;
 import com.hyuseinmustafa.librarymanagement.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,6 +19,12 @@ public class ControllerAdvisor extends RuntimeException {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String NotFoundException(){
         return "Content Not Found";
+    }
+
+    @ExceptionHandler(BookCopyBorrowedException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String BookCopyBorrowedException(){
+        return "Book is not available";
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
