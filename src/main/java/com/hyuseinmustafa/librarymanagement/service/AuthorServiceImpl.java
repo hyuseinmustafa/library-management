@@ -6,10 +6,12 @@ import com.hyuseinmustafa.librarymanagement.repository.AuthorRepository;
 import com.hyuseinmustafa.librarymanagement.web.v1.mapper.AuthorMapper;
 import com.hyuseinmustafa.librarymanagement.web.v1.model.AuthorDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @RequiredArgsConstructor
 @Service
@@ -20,10 +22,8 @@ public class AuthorServiceImpl implements AuthorService{
 
     @Override
     public List<AuthorDto> getAll() {
-        List<AuthorDto> authors = new ArrayList<>();
-        authorRepository.findAll().forEach(author -> authors.add(authorMapper.toAuthorDto(author)));
-        if(authors.isEmpty())throw new NotFoundException();
-        return authors;
+        return StreamSupport.stream(authorRepository.findAll().spliterator(), false)
+                .map(authorMapper::toAuthorDto).collect(Collectors.toList());
     }
 
     @Override
@@ -38,10 +38,12 @@ public class AuthorServiceImpl implements AuthorService{
     }
 
     @Override
-    public AuthorDto updateAuthor(Long id, AuthorDto authorDto) {
-        Author author = authorRepository.findById(id).orElseThrow(() -> new NotFoundException());
+    public Pair<AuthorDto, ContentUpdateStatus> updateAuthor(Long id, AuthorDto authorDto) {
+        Author author = authorRepository.findById(id).orElse(new Author());
         Author authorNew = authorMapper.toAuthor(authorDto);
         author.setName(authorNew.getName());
-        return authorMapper.toAuthorDto(authorRepository.save(author));
+        ContentUpdateStatus status = author.getId() == null ?
+                ContentUpdateStatus.CREATED_NEW : ContentUpdateStatus.UPDATED;
+        return Pair.of(authorMapper.toAuthorDto(authorRepository.save(author)), status);
     }
 }

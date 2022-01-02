@@ -2,8 +2,10 @@ package com.hyuseinmustafa.librarymanagement.web.v1.controller;
 
 import com.hyuseinmustafa.librarymanagement.service.AuthorService;
 import com.hyuseinmustafa.librarymanagement.Exception.NotFoundException;
+import com.hyuseinmustafa.librarymanagement.service.ContentUpdateStatus;
 import com.hyuseinmustafa.librarymanagement.web.v1.model.AuthorDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,18 +31,20 @@ public class AuthorController {
 
     @PostMapping
     public ResponseEntity<AuthorDto> newAuthor(@RequestBody AuthorDto authorDto){
-        return new ResponseEntity(authorService.newAuthor(authorDto), HttpStatus.OK);
+        return new ResponseEntity(authorService.newAuthor(authorDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<AuthorDto> updateAuthor(@PathVariable Long id,
                                                   @RequestBody AuthorDto authorDto){
-        return new ResponseEntity(authorService.updateAuthor(id, authorDto), HttpStatus.OK);
+        Pair pair = authorService.updateAuthor(id, authorDto);
+        return new ResponseEntity(pair.getFirst(),
+                pair.getSecond() == ContentUpdateStatus.UPDATED ? HttpStatus.OK : HttpStatus.CREATED);
     }
 
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String NotFoundException(NotFoundException ex){
-        return ex.getMessage();
+    public String NotFoundException(){
+        return "Content Not Found";
     }
 }
