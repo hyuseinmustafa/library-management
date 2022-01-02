@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -30,13 +31,13 @@ public class BookController {
     }
 
     @PostMapping
-    public  ResponseEntity<BookDto> saveNewBook(@RequestBody BookDto bookDto){
+    public  ResponseEntity<BookDto> saveNewBook(@RequestBody @Valid BookDto bookDto){
         return new ResponseEntity(bookService.createNew(bookDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<BookDto> updateBook(@PathVariable Long id,
-                                              @RequestBody BookDto bookDto){
+                                              @RequestBody @Valid BookDto bookDto){
         Pair pair = bookService.update(id, bookDto);
         return new ResponseEntity(pair.getFirst(),
                 (pair.getSecond() == ContentUpdateStatus.UPDATED) ? HttpStatus.OK : HttpStatus.CREATED);
