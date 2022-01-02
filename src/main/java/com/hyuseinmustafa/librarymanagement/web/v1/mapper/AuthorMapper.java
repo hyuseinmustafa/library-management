@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface AuthorMapper {
 
-    GetAuthorDto toPostAuthorDto(Author author);
+    GetAuthorDto toGetAuthorDto(Author author);
 
     Author toAuthor(PostAuthorDto authorDto);
 }

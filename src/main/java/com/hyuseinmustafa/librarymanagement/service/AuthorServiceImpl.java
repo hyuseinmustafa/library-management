@@ -24,18 +24,18 @@ public class AuthorServiceImpl implements AuthorService{
     @Override
     public List<GetAuthorDto> getAll() {
         return StreamSupport.stream(authorRepository.findAll().spliterator(), false)
-                .map(authorMapper::toPostAuthorDto).collect(Collectors.toList());
+                .map(authorMapper::toGetAuthorDto).collect(Collectors.toList());
     }
 
     @Override
     public GetAuthorDto getById(Long id) {
-        return authorMapper.toPostAuthorDto(authorRepository.findById(id)
+        return authorMapper.toGetAuthorDto(authorRepository.findById(id)
                         .orElseThrow(() -> new NotFoundException()));
     }
 
     @Override
     public GetAuthorDto createNew(PostAuthorDto postAuthorDto) {
-        return authorMapper.toPostAuthorDto(authorRepository.save(authorMapper.toAuthor(postAuthorDto)));
+        return authorMapper.toGetAuthorDto(authorRepository.save(authorMapper.toAuthor(postAuthorDto)));
     }
 
     @Override
@@ -45,6 +45,6 @@ public class AuthorServiceImpl implements AuthorService{
         author.setName(authorNew.getName());
         ContentUpdateStatus status = author.getId() == null ?
                 ContentUpdateStatus.CREATED_NEW : ContentUpdateStatus.UPDATED;
-        return Pair.of(authorMapper.toPostAuthorDto(authorRepository.save(author)), status);
+        return Pair.of(authorMapper.toGetAuthorDto(authorRepository.save(author)), status);
     }
 }
