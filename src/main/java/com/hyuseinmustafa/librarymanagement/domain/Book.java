@@ -17,9 +17,13 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String isbn;
 
+    @Column(nullable = false)
     @ManyToMany
     @JoinTable(name = "author_book",
             joinColumns = @JoinColumn(name = "book_id"),

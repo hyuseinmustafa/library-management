@@ -16,7 +16,11 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(nullable = false)
     private Long roomNumber;
+
+    @Column(nullable = false)
     private Long shelfNumber;
 
     @OneToMany(mappedBy = "location")
