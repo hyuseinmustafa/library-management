@@ -32,7 +32,7 @@ public class AuthorController {
 
     @PostMapping
     public ResponseEntity<GetAuthorDto> newAuthor(@RequestBody @Valid PostAuthorDto authorDto){
-        return new ResponseEntity(authorService.createNew(authorDto), HttpStatus.CREATED);
+        return new ResponseEntity(authorService.create(authorDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

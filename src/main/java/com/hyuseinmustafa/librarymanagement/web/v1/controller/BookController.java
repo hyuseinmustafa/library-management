@@ -32,7 +32,7 @@ public class BookController {
 
     @PostMapping
     public  ResponseEntity<GetBookDto> saveNewBook(@RequestBody @Valid PostBookDto postBookDto){
-        return new ResponseEntity(bookService.createNew(postBookDto), HttpStatus.CREATED);
+        return new ResponseEntity(bookService.create(postBookDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

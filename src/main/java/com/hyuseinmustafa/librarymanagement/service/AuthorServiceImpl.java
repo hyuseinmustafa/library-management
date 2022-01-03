@@ -34,7 +34,7 @@ public class AuthorServiceImpl implements AuthorService{
     }
 
     @Override
-    public GetAuthorDto createNew(PostAuthorDto postAuthorDto) {
+    public GetAuthorDto create(PostAuthorDto postAuthorDto) {
         return authorMapper.toGetAuthorDto(authorRepository.save(authorMapper.toAuthor(postAuthorDto)));
     }
 

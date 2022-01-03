@@ -68,7 +68,7 @@ class BookControllerTest {
 
     @Test
     void saveNewBook() throws Exception {
-        Mockito.when(service.createNew(any())).thenReturn(dto1);
+        Mockito.when(service.create(any())).thenReturn(dto1);
 
         mockMvc.perform(post(URI).accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)

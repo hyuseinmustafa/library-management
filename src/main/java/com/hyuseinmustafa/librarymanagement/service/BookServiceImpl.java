@@ -37,7 +37,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public GetBookDto createNew(PostBookDto postBookDto) {
+    public GetBookDto create(PostBookDto postBookDto) {
         Book book = bookMapper.toBook(postBookDto);
         Set<Author> authors = getAllAuthors(postBookDto.getAuthorIds());
         book.setAuthors(authors);

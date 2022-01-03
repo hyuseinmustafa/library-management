@@ -9,6 +9,6 @@ import java.util.List;
 public interface AuthorService {
     List<GetAuthorDto> getAll();
     GetAuthorDto getById(Long id);
-    GetAuthorDto createNew(PostAuthorDto authorDto);
+    GetAuthorDto create(PostAuthorDto authorDto);
     Pair<GetAuthorDto, ContentUpdateStatus> update(Long id, PostAuthorDto authorDto);
 }
