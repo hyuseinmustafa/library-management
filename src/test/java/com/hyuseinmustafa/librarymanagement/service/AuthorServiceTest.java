@@ -7,7 +7,6 @@ import com.hyuseinmustafa.librarymanagement.web.v1.mapper.AuthorMapper;
 import com.hyuseinmustafa.librarymanagement.web.v1.mapper.AuthorMapperImpl;
 import com.hyuseinmustafa.librarymanagement.web.v1.model.GetAuthorDto;
 import com.hyuseinmustafa.librarymanagement.web.v1.model.PostAuthorDto;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +30,8 @@ class AuthorServiceTest {
     @Mock
     private AuthorRepository repository;
     private AuthorService service;
-    private final Author author1 = Author.builder().id(1L).name("Author 1").build();
+    private final Author author = Author.builder().id(1L).name("Author 1").build();
+    private final PostAuthorDto dto = PostAuthorDto.builder().name("Dto Name").build();
 
     @BeforeEach
     void setUp() {
@@ -39,13 +39,9 @@ class AuthorServiceTest {
         service = new AuthorServiceImpl(repository, mapper);
     }
 
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
     void testGetAll() {
-        Mockito.when(repository.findAll()).thenReturn(Collections.singletonList(author1));
+        Mockito.when(repository.findAll()).thenReturn(Collections.singletonList(author));
 
         List<GetAuthorDto> response = service.getAll();
 
@@ -56,7 +52,7 @@ class AuthorServiceTest {
     void testGetById() {
         Assertions.assertThrowsExactly(NotFoundException.class, () -> service.getById(1L));
 
-        Mockito.when(repository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(author1));
+        Mockito.when(repository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(author));
 
         GetAuthorDto response = service.getById(1L);
 
@@ -65,8 +61,7 @@ class AuthorServiceTest {
 
     @Test
     void testCreate() {
-        PostAuthorDto dto = PostAuthorDto.builder().build();
-        Mockito.when(repository.save(any(Author.class))).thenReturn(author1);
+        Mockito.when(repository.save(any(Author.class))).thenReturn(author);
 
         GetAuthorDto response = service.create(dto);
 
@@ -75,9 +70,8 @@ class AuthorServiceTest {
 
     @Test
     void testUpdate() {
-        PostAuthorDto dto = PostAuthorDto.builder().name("Updated Name").build();
-        Mockito.when(repository.save(any(Author.class))).thenReturn(author1);
-        Mockito.when(repository.findById(1L)).thenReturn(java.util.Optional.ofNullable(author1));
+        Mockito.when(repository.save(any(Author.class))).thenReturn(author);
+        Mockito.when(repository.findById(1L)).thenReturn(java.util.Optional.ofNullable(author));
         Mockito.when(repository.findById(2L)).thenReturn(java.util.Optional.empty());
 
         Pair<GetAuthorDto, ContentUpdateStatus> response = service.update(1L, dto);
